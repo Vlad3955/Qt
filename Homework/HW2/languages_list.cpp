@@ -19,6 +19,7 @@ Languages_list::Languages_list(QWidget *parent) :
         model->setData(index, QIcon(":/Icons/" + str + ".png"), Qt::DecorationRole);
     }
     ui->listView->setModel(model);
+    ui->listView->setEditTriggers(QAbstractItemView::EditTrigger::DoubleClicked);
 }
 
 Languages_list::~Languages_list()
@@ -28,11 +29,9 @@ Languages_list::~Languages_list()
 
 void Languages_list::on_pb_add_lang_clicked()
 {
-
     model->insertRow(model->rowCount());
     QModelIndex index1 = model->index(model->rowCount(), 0);
     QString text = model->data(index1, Qt::DisplayRole).toString();
-    //QString text = index1.data(Qt::DisplayRole).toString();
     list.append(text);
     for (int i = 0; i < model->rowCount(); ++i)
     {
@@ -40,11 +39,7 @@ void Languages_list::on_pb_add_lang_clicked()
         QString str = list[i];
         model->setData(index, str, Qt::DisplayRole);
         model->setData(index, "Tooltip for " + str, Qt::ToolTipRole);
-        //model->setData(index, QIcon(":/Icons/" + str + ".png"), Qt::DecorationRole);
-        if(!( model->setData(index, QIcon(":/Icons/" + str + ".png"), Qt::DecorationRole)))
-        {
-             model->setData(index, QIcon(":/Icons/pc.png"), Qt::DecorationRole);
-        }
+        model->setData(index, QIcon(":/Icons/" + str + ".png"), Qt::DecorationRole);
     }
 }
 
