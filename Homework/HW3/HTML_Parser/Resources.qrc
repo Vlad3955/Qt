@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/html">
+        <file>mail_ru.txt</file>
+    </qresource>
+    <qresource prefix="/"/>
+</RCC>

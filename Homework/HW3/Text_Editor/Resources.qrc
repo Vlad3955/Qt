@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/ReadMe"/>
+    <qresource prefix="/Doc">
+        <file>reference.txt</file>
+    </qresource>
+</RCC>
