@@ -6,6 +6,7 @@
 #include "reference.h"
 #include <QTranslator>
 #include <QEvent>
+#include <QKeyEvent>
 
 
 QT_BEGIN_NAMESPACE
@@ -22,6 +23,8 @@ public:
 
 protected:
     void changeEvent(QEvent *event) override;
+
+    void keyPressEvent(QKeyEvent *event) override;
 
 private slots:
     void on_pb_open_clicked();

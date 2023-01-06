@@ -10,19 +10,27 @@ Text_Editor::Text_Editor(QWidget *parent)
     pathSave = nullptr;
     ui->setupUi(this);
 
-    ui->comboBox->addItems(QStringList() << "ru_RU" << "en_US");
+    ui->comboBox->addItems(QStringList() << "Russian" << "English");
     ui->pb_open->setText(tr("Open"));
     ui->pb_save->setText(tr("Save"));
     ui->pb_reference->setText(tr("Reference"));
 
 
-    connect(ui->comboBox, reinterpret_cast<void(QComboBox::*)(const QString &)>(&QComboBox::currentIndexChanged),
-               [=](const QString &str){
-           translator.load("QtLanguage_" + str, ".");   // Загружаем перевод
-           qApp->installTranslator(&translator);        // Устанавливаем перевод в приложение
+    connect(ui->comboBox, static_cast<void(QComboBox::*)(const QString &)>(&QComboBox::currentTextChanged),
+               [this](const QString &str){
+           if (str == "English")
+           {
+               translator.load(":/Translators/QtLanguage_en.qm");
+               qApp->installTranslator(&translator);
+           }
+           else
+           {
+               translator.load(":/Translators/QtLanguage_ru.qm");
+               qApp->installTranslator(&translator);
+           }
        });
 
-    translator.load(QString("QtLanguage_") + QString("ru_RU"));
+    translator.load(":/Translators/QtLanguage_ru.qm");
         qApp->installTranslator(&translator);
 }
 
@@ -99,10 +107,42 @@ Text_Editor::~Text_Editor()
 
 void Text_Editor::changeEvent(QEvent *event)
 {
-    // В случае получения события изменения языка приложения
-        if (event->type() == QEvent::LanguageChange) {
-            ui->retranslateUi(this);    // переведём окно заново
+    if (event->type() == QEvent::LanguageChange)
+    {
+        ui->retranslateUi(this);
+    }
+}
+
+void Text_Editor::keyPressEvent(QKeyEvent *event)
+{
+    switch (event->key()) {
+    case Qt::Key_O:
+        if (event->modifiers() & Qt::ControlModifier)
+        {
+            this->on_pb_open_clicked();
         }
+        break;
+    case Qt::Key_S:
+        if (event->modifiers() & Qt::ControlModifier)
+        {
+            this->on_pb_save_clicked();
+        }
+        break;
+//    case Qt::Key_N:
+//        if (event->modifiers() & Qt::ControlModifier)
+//        {
+
+//        }
+//        break;
+//    case Qt::Key_Q:
+//        if (event->modifiers() & Qt::ControlModifier)
+//        {
+
+//        }
+//        break;
+    default:
+        break;
+    }
 }
 
 
