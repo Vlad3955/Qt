@@ -3,11 +3,12 @@
 
 #include <QMainWindow>
 #include <QFileDialog>
-#include "reference.h"
 #include <QTranslator>
 #include <QEvent>
 #include <QKeyEvent>
 
+#include "reference.h"
+#include "new_window.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Text_Editor; }
@@ -46,5 +47,6 @@ private:
     QString pathSave;
     QString path;
     QTranslator translator;
+    New_Window *n_w;
 };
 #endif // TEXT_EDITOR_H

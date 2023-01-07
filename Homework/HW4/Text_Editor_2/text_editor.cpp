@@ -9,6 +9,7 @@ Text_Editor::Text_Editor(QWidget *parent)
     path = nullptr;
     pathSave = nullptr;
     ui->setupUi(this);
+    n_w = new New_Window;
 
     ui->comboBox->addItems(QStringList() << "Russian" << "English");
     ui->pb_open->setText(tr("Open"));
@@ -128,18 +129,19 @@ void Text_Editor::keyPressEvent(QKeyEvent *event)
             this->on_pb_save_clicked();
         }
         break;
-//    case Qt::Key_N:
-//        if (event->modifiers() & Qt::ControlModifier)
-//        {
-
-//        }
-//        break;
-//    case Qt::Key_Q:
-//        if (event->modifiers() & Qt::ControlModifier)
-//        {
-
-//        }
-//        break;
+    case Qt::Key_N:
+        if (event->modifiers() & Qt::ControlModifier)
+        {
+            n_w->show();
+        }
+        break;
+    case Qt::Key_Q:
+        if (event->modifiers() & Qt::ControlModifier)
+        {
+            this->on_pb_save_clicked();
+            exit(0);
+        }
+        break;
     default:
         break;
     }

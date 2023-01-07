@@ -11,14 +11,17 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
+    new_window.cpp \
     reference.cpp \
     text_editor.cpp
 
 HEADERS += \
+    new_window.h \
     reference.h \
     text_editor.h
 
 FORMS += \
+    new_window.ui \
     reference.ui \
     text_editor.ui
 
