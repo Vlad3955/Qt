@@ -2,6 +2,7 @@
 #define FILE_SYSTEM_VIEWER_H
 
 #include <QWidget>
+#include <QLineEdit>
 #include <QGridLayout>
 #include <QTreeView>
 #include <QComboBox>
@@ -28,12 +29,14 @@ public:
 private:
     QGridLayout *gridLay;
     QTreeView *tree;
+    QLineEdit *t_edit;
     QPushButton *mainPath;
     QComboBox *disckSelBox;
 
 private slots:
    void chgDisk(int index);
    void goMainPath();
+   void chgFolders(QModelIndex index);
 
 private:
    QStandardItemModel *model;
