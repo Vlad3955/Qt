@@ -9,6 +9,11 @@
 #include <QMenuBar>
 #include <QMenu>
 #include <QApplication>
+#include <QCloseEvent>
+#include <QMessageBox>
+#include <QtPrintSupport/QPrinter>
+#include <QtPrintSupport/QPrintDialog>
+
 
 #include "reference.h"
 #include "new_window.h"
@@ -30,6 +35,8 @@ protected:
 
     void keyPressEvent(QKeyEvent *event) override;
 
+    void closeEvent(QCloseEvent *event) override;
+
 private slots:
     void pb_open();
 
@@ -48,6 +55,8 @@ private slots:
     void light_theme();
 
     void dark_theme();
+
+    void print_doc();
 
 private:
 

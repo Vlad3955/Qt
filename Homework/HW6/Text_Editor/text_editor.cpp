@@ -18,7 +18,11 @@ Text_Editor::Text_Editor(QWidget *parent)
     file_menu->addSeparator();
     file_menu->addAction("Save as... CTRL+S", this, SLOT(pb_save()));
     file_menu->addSeparator();
+    file_menu->addAction("Print", this, SLOT(print_doc()));
+    file_menu->addSeparator();
     file_menu->addAction("Reference", this, SLOT(reference()));
+
+
 
     QMenu *view_menu = menuBar()->addMenu("View");
     QMenu *sub_lang_menu = new QMenu("Language");
@@ -137,11 +141,23 @@ void Text_Editor::dark_theme()
                   "QPlainTextEdit { background-color: #2F4F4F; color: white}");
 }
 
+void Text_Editor::print_doc()
+{
+    QPrinter printer;
+    QPrintDialog dlg(&printer, this);
+    dlg.setWindowTitle("Print");
+    if (dlg.exec() != QDialog::Accepted)
+    {
+        return;
+    }
+    ui->plainTextEdit->print(&printer);
+}
+
 
 
 Text_Editor::~Text_Editor()
 {
-    destr_save();
+    //destr_save();
     delete ui;
 }
 
@@ -183,6 +199,32 @@ void Text_Editor::keyPressEvent(QKeyEvent *event)
         break;
     default:
         break;
+    }
+}
+
+void Text_Editor::closeEvent(QCloseEvent *event)
+{
+    QMessageBox msgBox(this);
+    msgBox.setText("Save this document?");
+    msgBox.setIcon(QMessageBox::Icon::Question);
+    msgBox.addButton("Yes", QMessageBox::YesRole);
+    msgBox.addButton("No", QMessageBox::NoRole);
+    msgBox.addButton("Cancel", QMessageBox::RejectRole);
+
+    int result = msgBox.exec();
+    if (result == 0)
+    {
+        this->destr_save();
+        event->accept();
+    }
+    else if (result == 1)
+    {
+        event->ignore();
+        qApp->quit();
+    }
+    else
+    {
+        event->ignore();
     }
 }
 
