@@ -29,18 +29,9 @@ Languages_list::~Languages_list()
 
 void Languages_list::on_pb_add_lang_clicked()
 {
-    model->insertRow(model->rowCount());
-    QModelIndex index1 = model->index(model->rowCount(), 0);
-    QString text = model->data(index1, Qt::DisplayRole).toString();
-    list.append(text);
-    for (int i = 0; i < model->rowCount(); ++i)
-    {
-        QModelIndex index = model->index(i, 0);
-        QString str = list[i];
-        model->setData(index, str, Qt::DisplayRole);
-        model->setData(index, "Tooltip for " + str, Qt::ToolTipRole);
-        model->setData(index, QIcon(":/Icons/" + str + ".png"), Qt::DecorationRole);
-    }
+    int const row_count = model->rowCount();
+    model->insertRow(row_count);
+    model->setData(model->index(row_count, 0), QIcon(":/Icons/.png"), Qt::DecorationRole);
 }
 
 
