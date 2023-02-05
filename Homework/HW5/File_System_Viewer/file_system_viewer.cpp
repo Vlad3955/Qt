@@ -89,7 +89,7 @@ void File_System_Viewer::chgFolders(QModelIndex index)
     items.at(0)->appendRows(files);
     setNewModel(model);
 
-    connect(tree, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(chgFolders(QModelIndex)));
+    //connect(tree, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(chgFolders(QModelIndex)));
 }
 
 void File_System_Viewer::setNewModel(QStandardItemModel *newmodel)
