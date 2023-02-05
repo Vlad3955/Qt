@@ -11,7 +11,7 @@ BlockScheme::BlockScheme(QObject *parent)
     brush.setStyle(Qt::BrushStyle::SolidPattern);
 
     Geo();
-
+    ++geo;
     setPos(0,0);
     moving = false;
 }
@@ -21,15 +21,26 @@ BlockScheme::BlockScheme(QObject *parent)
 void BlockScheme::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     painter->setBrush(brush);
-    if (geometry == Geometry::ELLIPS) painter->drawEllipse(x, y, 200, 100);
-    if (geometry == Geometry::RECTANGLE) painter->drawRect(x, y, 200, 100);
+    if (geometry == Geometry::ELLIPS) painter->drawEllipse(x, y, 250, 190);
+    if (geometry == Geometry::RECTANGLE) painter->drawRect(x, y, 250, 190);
+    QPolygon poly;
+    poly << QPoint(0, 85) << QPoint(75, 75)
+         << QPoint(100, 10) << QPoint(125, 75)
+         << QPoint(200, 85) << QPoint(150, 125)
+         << QPoint(160, 190) << QPoint(100, 150)
+         << QPoint(40, 190) << QPoint(50, 125)
+         << QPoint(0, 85);
+    QPainterPath path;
+    path.addPolygon(poly);
+    if (geometry == Geometry::STAR) painter->fillPath(path, brush); //painter->drawPolygon(poly);
+
     Q_UNUSED(option)
     Q_UNUSED(widget)
 }
 
 QRectF BlockScheme::boundingRect() const
 {
-    return QRectF(x, y, 200, 100);
+    return QRectF(x, y, 250, 190);
 }
 
 void BlockScheme::Geo()
@@ -41,18 +52,17 @@ void BlockScheme::Geo()
     case 2:
         geometry = Geometry::RECTANGLE;
         break;
+    case 3:
+        geometry = Geometry::STAR;
+        break;
     default:
         break;
     }
 
 
-    if (geo == 2)
+    if (geo == 3)
     {
-        geo = 1;
-    }
-    else if (geo == 1)
-    {
-        geo = 2;
+        geo = 0;
     }
 }
 
@@ -88,14 +98,6 @@ void BlockScheme::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         y += p.y();
         bpoint = event->pos().toPoint();
         emit reDraw(); // Переотрисовываем
-    }
-}
-
-void BlockScheme::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
-{
-    if (event->button() == Qt::LeftButton)
-    {
-        emit dblClick();
     }
 }
 

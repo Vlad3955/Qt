@@ -21,7 +21,6 @@ public:
 
 signals:
     void reDraw();
-    void dblClick();
 
 private:
    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget
@@ -30,7 +29,7 @@ private:
    void Geo();
 
 private:
-   enum Geometry {RECTANGLE, ELLIPS};
+   enum Geometry {RECTANGLE, ELLIPS, STAR};
    int x, y;
    Geometry geometry;
    QPoint bpoint;
@@ -42,7 +41,6 @@ protected:
    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
    void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
-   void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
 
 };
 
