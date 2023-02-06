@@ -24,15 +24,16 @@ void BlockScheme::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
     if (geometry == Geometry::ELLIPS) painter->drawEllipse(x, y, 250, 190);
     if (geometry == Geometry::RECTANGLE) painter->drawRect(x, y, 250, 190);
     QPolygon poly;
-    poly << QPoint(0, 85) << QPoint(75, 75)
-         << QPoint(100, 10) << QPoint(125, 75)
-         << QPoint(200, 85) << QPoint(150, 125)
-         << QPoint(160, 190) << QPoint(100, 150)
-         << QPoint(40, 190) << QPoint(50, 125)
-         << QPoint(0, 85);
+    poly << QPoint(x, y+85) << QPoint(x+75, y+75)
+         << QPoint(x+100, y+10) << QPoint(x+125, y+75)
+         << QPoint(x+200, y+85) << QPoint(x+150, y+125)
+         << QPoint(x+160, y+190) << QPoint(x+100, y+150)
+         << QPoint(x+40, y+190) << QPoint(x+50, y+125)
+         << QPoint(x, y+85);
     QPainterPath path;
     path.addPolygon(poly);
     if (geometry == Geometry::STAR) painter->fillPath(path, brush); //painter->drawPolygon(poly);
+
 
     Q_UNUSED(option)
     Q_UNUSED(widget)
