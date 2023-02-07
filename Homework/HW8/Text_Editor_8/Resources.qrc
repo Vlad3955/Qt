@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/Doc">
+        <file>reference.txt</file>
+    </qresource>
+    <qresource prefix="/Translators">
+        <file>QtLanguage_ru.qm</file>
+    </qresource>
+    <qresource prefix="/Icons">
+        <file>center.png</file>
+        <file>left.png</file>
+        <file>right.png</file>
+    </qresource>
+</RCC>

@@ -38,7 +38,7 @@ Text_Editor::Text_Editor(QWidget *parent)
     view_menu->addMenu(sub_theme_menu);
 
     QMenu *format_menu = menuBar()->addMenu(tr("Format"));
-    format_menu->addAction(tr("Rand color"), this, SLOT(rand_color()));
+    format_menu->addAction(tr("Random color"), this, SLOT(rand_color()));
     format_menu->addSeparator();
     format_menu->addAction(tr("Font"), this, SLOT(set_font()));
     format_menu->addSeparator();
@@ -51,6 +51,8 @@ Text_Editor::Text_Editor(QWidget *parent)
     format_menu->addAction(tr("Copy format"), this, SLOT(copy_format()));
     format_menu->addSeparator();
     format_menu->addAction(tr("Paste format"), this, SLOT(paste_format()));
+    format_menu->addSeparator();
+    format_menu->addAction(tr("Date & Time"), this, SLOT(date_time()));
 
     srand(clock());
 
@@ -219,6 +221,14 @@ void Text_Editor::set_center()
 void Text_Editor::set_right()
 {
     ui->textEdit->setAlignment(Qt::AlignRight);
+}
+
+void Text_Editor::date_time()
+{
+    QDateTime today = QDateTime::currentDateTime();
+    QString dt = today.toString("h:m:s ap ddd MMMM d yy");
+
+    ui->textEdit->insertPlainText(dt);
 }
 
 Text_Editor::~Text_Editor()
