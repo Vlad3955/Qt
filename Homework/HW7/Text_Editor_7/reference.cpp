@@ -7,7 +7,6 @@ Reference::Reference(QWidget *parent) :
 {
     ui->setupUi(this);
 
-
     QFile file(":/Doc/reference.txt");
     if (file.open(QIODevice::ReadOnly))
     {
