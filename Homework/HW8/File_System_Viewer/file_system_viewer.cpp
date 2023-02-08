@@ -140,7 +140,17 @@ void File_System_Viewer::chgFolders(QModelIndex index)
 
 
 
+
     curretnPath += model->data(index, Qt::DisplayRole).toString() + "/";
+    if (compPath == model->data(index, Qt::DisplayRole).toString() + "/")
+    {
+        return;
+    }
+    else
+    {
+        compPath = model->data(index, Qt::DisplayRole).toString() + "/";
+    }
+
     QStandardItemModel *model = new QStandardItemModel(this);
     QList<QStandardItem*> items;
     items.append(new QStandardItem(QIcon(QApplication::style()->standardIcon(QStyle::SP_DirIcon)), curretnPath));
@@ -151,11 +161,10 @@ void File_System_Viewer::chgFolders(QModelIndex index)
     int amount = list.count();
     QList<QStandardItem*>folders;
 
-    QString t_e = t_edit->text();
-    if (t_e != curretnPath)
-    {
-        t_edit->setText(curretnPath);
-    }
+
+
+    t_edit->setText(curretnPath);
+
 
 
 

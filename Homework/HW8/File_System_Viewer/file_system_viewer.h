@@ -41,6 +41,7 @@ private slots:
 private:
    QStandardItemModel *model;
    QString curretnPath;
+   QString compPath;
 
 };
 
