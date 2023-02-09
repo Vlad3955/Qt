@@ -56,99 +56,16 @@ void File_System_Viewer::goMainPath()
 
 void File_System_Viewer::chgFolders(QModelIndex index)
 {
-//    QString curretnPath2 = model->data(index, Qt::DisplayRole).toString();
-//    QStandardItemModel *model = new QStandardItemModel(this);
-//    QList<QStandardItem*> items;
-//    items.append(new QStandardItem(QIcon(QApplication::style()->standardIcon(QStyle::SP_DirIcon)), curretnPath2));
-//    model->appendRow(items);
-//    //QDir dir(curretnPath2);
-//    QDir dir(curretnPath + curretnPath2);
-//    dir.setFilter(QDir::Hidden | QDir::NoSymLinks | QDir::Dirs);
-//    //dir.setFilter(QDir::Hidden | QDir::NoSymLinks | QDir::Files);
-//    QStringList list = dir.entryList();
-//    int amount = list.count();
-//    QList<QStandardItem*>folders;
-//    t_edit->setText(curretnPath + curretnPath2);
-
-//    for (int i = 0; i < amount; i++)
-//    {
-//        QStandardItem* f = new QStandardItem(QIcon(QApplication::style()->standardIcon(QStyle::SP_DirIcon)), list.at(i));
-//        folders.append(f);
-//    }
-
-//    items.at(0)->appendRows(folders);
-//    dir.setFilter(QDir::Hidden | QDir::NoSymLinks | QDir::Files);
-//    list = dir.entryList();
-//    amount = list.count();
-//    QList<QStandardItem*>files;
-
-//    for (int i = 0; i < amount; i++)
-//    {
-//        QStandardItem* f = new QStandardItem(QIcon(QApplication::style()->standardIcon(QStyle::SP_FileIcon)), list.at(i));
-//        files.append(f);
-//    }
-
-//    items.at(0)->appendRows(files);
-//    setNewModel(model);
-
-//    //connect(tree, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(chgFolders(QModelIndex)));
-//}
-
-//void File_System_Viewer::setNewModel(QStandardItemModel *newmodel)
-//{
-//    tree->setModel(newmodel);
-//    model = newmodel;
-//}
-
-
-//void File_System_Viewer::rebuildModel(QString str)
-//{
-//    curretnPath = str;
-//    QStandardItemModel *model = new QStandardItemModel(this);
-//    QList<QStandardItem*> items;
-//    items.append(new QStandardItem(QIcon(QApplication::style()->standardIcon(QStyle::SP_DriveHDIcon)), str));
-//    model->appendRow(items);
-//    QDir dir(str);
-//    dir.setFilter(QDir::Hidden | QDir::NoSymLinks | QDir::Dirs);
-//    QStringList list = dir.entryList();
-//    int amount = list.count();
-//    QList<QStandardItem*>folders;
-
-//    for (int i = 0; i < amount; i++)
-//    {
-//        QStandardItem* f = new QStandardItem(QIcon(QApplication::style()->standardIcon(QStyle::SP_DirIcon)), list.at(i));
-//        folders.append(f);
-//    }
-
-//    items.at(0)->appendRows(folders);
-//    dir.setFilter(QDir::Hidden | QDir::NoSymLinks | QDir::Files);
-//    list = dir.entryList();
-//    amount = list.count();
-//    QList<QStandardItem*>files;
-
-//    for (int i = 0; i < amount; i++)
-//    {
-//        QStandardItem* f = new QStandardItem(QIcon(QApplication::style()->standardIcon(QStyle::SP_FileIcon)), list.at(i));
-//        files.append(f);
-//    }
-
-//    items.at(0)->appendRows(files);
-//    setNewModel(model);
-
-
-
-
-
-
-
-    curretnPath += model->data(index, Qt::DisplayRole).toString() + "/";
-    if (compPath == model->data(index, Qt::DisplayRole).toString() + "/")
+    qDebug() << "Index = " << model->data(index, Qt::DisplayRole).toString() + "/";
+    qDebug() << "CurrentPath = " << curretnPath;
+    //curretnPath += model->data(index, Qt::DisplayRole).toString() + "/";
+    if (curretnPath == model->data(index, Qt::DisplayRole).toString())
     {
         return;
     }
     else
     {
-        compPath = model->data(index, Qt::DisplayRole).toString() + "/";
+        curretnPath += model->data(index, Qt::DisplayRole).toString() + "/";
     }
 
     QStandardItemModel *model = new QStandardItemModel(this);
