@@ -1,5 +1,6 @@
 #include "file_system_viewer.h"
 #include <QDir>
+#include <QStatusBar>
 
 
 File_System_Viewer::File_System_Viewer(QWidget *parent)
@@ -13,7 +14,34 @@ File_System_Viewer::File_System_Viewer(QWidget *parent)
     t_edit = new QLineEdit(this);
     gridLay->addWidget(t_edit, 0, 2, 1, 8);
 
-    setMinimumSize(500, 600);
+    startFindButton = new QPushButton(this);
+    startFindButton->setText(tr("Find"));
+    gridLay->addWidget(startFindButton, 0, 10, 1, 2);
+    searchEdit = new QLineEdit(this);
+    gridLay->addWidget(searchEdit, 0, 12, 1, 8);
+    connect(startFindButton, SIGNAL(clicked()), this, SLOT(findFileSlot()));
+    infoText = new QTextEdit(this);
+    gridLay->addWidget(infoText, 1, 10, 8, 10);
+    controllerl = new Controller(this);
+    statusLabel = new QLabel(this);
+    searchStatus = new QLabel(this);
+    searchStatus->setText(tr("Search status:"));
+    gridLay->addWidget(searchStatus, 9, 10, 1, 1);
+    gridLay->addWidget(statusLabel, 10, 10, 1, 10);
+
+    stopFindButton = new QPushButton(this);
+    stopFindButton->setText(tr("Stop search"));
+    gridLay->addWidget(stopFindButton, 9, 18, 1, 2);
+    connect(stopFindButton, SIGNAL(clicked()), this, SLOT(stopSearch()));
+    connect(controllerl, SIGNAL(changFindPath(QString)), this,
+    SLOT(changStatusLabel(QString)));
+    connect(controllerl, SIGNAL(genPathOfFile(QString)), this,
+    SLOT(printFindFile(QString)));
+    //connect(controllerl, SIGNAL((newFind())), this, SLOT(infoTextClear()));
+    connect(startFindButton, SIGNAL(clicked()), this, SLOT(infoTextClear()));
+
+
+    setMinimumSize(900, 600);
     if(QSysInfo::productType() == "windows")
     {
         disckSelBox = new QComboBox(this);
@@ -58,7 +86,6 @@ void File_System_Viewer::chgFolders(QModelIndex index)
 {
     qDebug() << "Index = " << model->data(index, Qt::DisplayRole).toString() + "/";
     qDebug() << "CurrentPath = " << curretnPath;
-    //curretnPath += model->data(index, Qt::DisplayRole).toString() + "/";
     if (curretnPath == model->data(index, Qt::DisplayRole).toString())
     {
         return;
@@ -77,14 +104,7 @@ void File_System_Viewer::chgFolders(QModelIndex index)
     QStringList list = dir.entryList();
     int amount = list.count();
     QList<QStandardItem*>folders;
-
-
-
     t_edit->setText(curretnPath);
-
-
-
-
 
     for (int i = 0; i < amount; i++)
     {
@@ -106,6 +126,33 @@ void File_System_Viewer::chgFolders(QModelIndex index)
 
     items.at(0)->appendRows(files);
     setNewModel(model);
+}
+
+void File_System_Viewer::findFileSlot()
+{
+    QString linesearch = searchEdit->text();
+    if (linesearch.length() == 0) return;
+    controllerl->startFind(disckSelBox->currentText(), linesearch);
+}
+
+void File_System_Viewer::changStatusLabel(QString line)
+{
+    statusLabel->setText(line);
+}
+
+void File_System_Viewer::printFindFile(QString str)
+{
+    infoText->append(str);
+}
+
+void File_System_Viewer::stopSearch()
+{
+    controllerl->stopSearch();
+}
+
+void File_System_Viewer::infoTextClear()
+{
+    infoText->clear();
 }
 
 void File_System_Viewer::setNewModel(QStandardItemModel *newmodel)

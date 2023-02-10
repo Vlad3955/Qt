@@ -9,6 +9,12 @@
 #include <QPushButton>
 #include <QStandardItemModel>
 #include <QApplication>
+#include <QLabel>
+#include <QTextEdit>
+
+
+#include "controller.h"
+
 
 
 Q_PROPERTY(QStandardItemModel *model READ getCurrentModel WRITE setNewModel)
@@ -33,15 +39,32 @@ private:
     QPushButton *mainPath;
     QComboBox *disckSelBox;
 
+    QLineEdit *searchEdit;
+    QPushButton *startFindButton;
+    QPushButton *stopFindButton;
+    Controller *controllerl;
+    QLabel *statusLabel;
+    QLabel *searchStatus;
+    QTextEdit *infoText;
+
+
+
 private slots:
    void chgDisk(int index);
    void goMainPath();
    void chgFolders(QModelIndex index);
 
+   void findFileSlot();
+   void changStatusLabel(QString);
+   void printFindFile(QString);
+
+   void stopSearch();
+   void infoTextClear();
+
+
 private:
    QStandardItemModel *model;
    QString curretnPath;
-   QString compPath;
 
 };
 

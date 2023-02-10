@@ -21,7 +21,7 @@ public:
     void clearTree();
     QStandardItemModel *getCurrentModel()const
     {
-    return model;
+        return model;
     }
     void setNewModel(QStandardItemModel *newmodel);
     void rebuildModel(QString str);
@@ -41,6 +41,7 @@ private slots:
 private:
    QStandardItemModel *model;
    QString curretnPath;
+   QString compPath;
 
 };
 

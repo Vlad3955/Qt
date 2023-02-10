@@ -56,17 +56,35 @@ void File_System_Viewer::goMainPath()
 
 void File_System_Viewer::chgFolders(QModelIndex index)
 {
-    QString curretnPath2 = model->data(index, Qt::DisplayRole).toString();
+    qDebug() << "Index = " << model->data(index, Qt::DisplayRole).toString() + "/";
+    qDebug() << "CurrentPath = " << curretnPath;
+    //curretnPath += model->data(index, Qt::DisplayRole).toString() + "/";
+    if (curretnPath == model->data(index, Qt::DisplayRole).toString())
+    {
+        return;
+    }
+    else
+    {
+        curretnPath += model->data(index, Qt::DisplayRole).toString() + "/";
+    }
+
     QStandardItemModel *model = new QStandardItemModel(this);
     QList<QStandardItem*> items;
-    items.append(new QStandardItem(QIcon(QApplication::style()->standardIcon(QStyle::SP_DirIcon)), curretnPath2));
+    items.append(new QStandardItem(QIcon(QApplication::style()->standardIcon(QStyle::SP_DirIcon)), curretnPath));
     model->appendRow(items);
-    QDir dir(curretnPath2);
-    dir.setFilter(QDir::Hidden | QDir::NoSymLinks | QDir::Dirs);
+    QDir dir(curretnPath);
+    dir.setFilter(QDir::Hidden | QDir::NoSymLinks | QDir::Dirs | QDir::NoDotAndDotDot);
     QStringList list = dir.entryList();
     int amount = list.count();
     QList<QStandardItem*>folders;
-    t_edit->setText(curretnPath + curretnPath2);
+
+
+
+    t_edit->setText(curretnPath);
+
+
+
+
 
     for (int i = 0; i < amount; i++)
     {
@@ -88,8 +106,6 @@ void File_System_Viewer::chgFolders(QModelIndex index)
 
     items.at(0)->appendRows(files);
     setNewModel(model);
-
-    //connect(tree, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(chgFolders(QModelIndex)));
 }
 
 void File_System_Viewer::setNewModel(QStandardItemModel *newmodel)
