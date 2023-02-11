@@ -41,6 +41,7 @@ void Controller::startFind(QString dir, QString file)
 void Controller::deleteThread()
 {
     findThread.reset();
+    finishThread();
 }
 
 void Controller::printCurrentPath(QString path)
@@ -69,7 +70,7 @@ void Controller::stopSearch()
         if (findThread->isRunning())    // Проверяем, работает ли поток
         {
             findThread->findStop();     // Меняем флаг для завершения всех циклов
-            finishThread();             // потока
+            emit changFindPath(tr("Search stopped!"));            // потока
             findThread->terminate();    // Ожидаем завершения потока
         }
         findThread.reset();             // Сбрасываем поток, вызывая деструктор
