@@ -3,8 +3,47 @@
 TaskModel::TaskModel(QObject *parent):
     QAbstractListModel(parent)
 {
-//    m_data.append("old");
-//    m_data.append("another old");
+    QFile file(":/doc/taskbase.txt");
+    if (file.open(QIODevice::ReadOnly))
+    {
+        //int lineindex = 0;
+        QTextStream in(&file);
+
+        while (!in.atEnd()) {
+
+            //QString fileLine = in.readLine();
+            m_data << in.readLine();
+
+//            QStringList lineToken = fileLine.split("/n", Qt::KeepEmptyParts);
+//            for (int j = 0; j < lineToken.size(); j++)
+//            {
+//                QString value = lineToken.at(j);
+//                m_data << value;
+//            }
+//            lineindex++;
+        }
+        file.close();
+    }
+
+    m_tasksCount = m_data.size();
+}
+
+TaskModel::~TaskModel()
+{
+    QFile file("D:/C++/CPP/Qt/Homework/HW9/ToDoList/taskbase.txt");
+    if (file.exists())
+    {
+        if (file.open(QIODevice::WriteOnly))
+        {
+            for(int i = 0; i < m_data.size(); ++i)
+            {
+                QString task(m_data[i]);
+                QByteArray ba = task.toUtf8() + "\r\n";
+                file.write(ba, ba.length());
+            }
+        }
+    }
+
 }
 
 int TaskModel::rowCount(const QModelIndex &parent) const
@@ -23,8 +62,6 @@ QVariant TaskModel::data(const QModelIndex &index, int role) const
     }
 
     switch (role) {
-//    case ColorRole:
-//        return QVariant(index.row() < 2 ? "orange" : "skyblue");
     case TextRole:
         return m_data.at(index.row());
     default:
@@ -35,19 +72,81 @@ QVariant TaskModel::data(const QModelIndex &index, int role) const
 QHash<int, QByteArray> TaskModel::roleNames() const
 {
     QHash<int, QByteArray> roles = QAbstractListModel::roleNames();
-    //roles[ColorRole] = "color";
     roles[TextRole] = "text";
 
     return roles;
 }
 
-void TaskModel::add()
+void TaskModel::add(QString task)
 {
     beginInsertRows(QModelIndex(), m_data.size(), m_data.size());
-    m_data.append("");
+    if(task != "")
+    m_data.append(task);
     endInsertRows();
 
-    m_data[0] = QString("Size: %1").arg(m_data.size());
     QModelIndex index = createIndex(0, 0, static_cast<void *>(0));
     emit dataChanged(index, index);
+}
+
+void TaskModel::removeData(int row)
+{
+    if(row < 0 || row >= m_data.count())
+    {
+        return;
+    }
+
+    beginRemoveRows(QModelIndex(), row, row);
+    m_data.removeAt(row);
+    endRemoveRows();
+
+    QFile file("D:/C++/CPP/Qt/Homework/HW9/ToDoList/taskbase.txt");
+    if (file.exists())
+    {
+        if (file.open(QIODevice::WriteOnly))
+        {
+            for(int i = 0; i < m_data.size(); ++i)
+            {
+                QString task(m_data[i]);
+                QByteArray ba = task.toUtf8() + "\r\n";
+                file.write(ba, ba.length());
+            }
+        }
+    }
+}
+
+bool TaskModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    if (!index.isValid()) {
+        return false;
+    }
+
+    switch (role) {
+    case TextRole:
+        m_data[index.row()] = value.toString();
+        break;
+    default:
+        return false;
+    }
+
+    emit dataChanged(index, index, QVector<int>() << role);
+
+    return true;
+}
+
+Qt::ItemFlags TaskModel::flags(const QModelIndex &index) const
+{
+    if (!index.isValid())
+        return Qt::ItemIsEnabled;
+
+    return QAbstractListModel::flags(index) | Qt::ItemIsEditable;
+}
+
+void TaskModel::setTasksCount(int count)
+{
+
+}
+
+int TaskModel::getTasksCount()
+{
+    return m_tasksCount;
 }

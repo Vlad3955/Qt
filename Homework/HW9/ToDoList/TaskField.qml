@@ -5,6 +5,7 @@ Item {
     id: tfRoot
     implicitWidth: 100
     implicitHeight: 24
+    signal delTask()
     property alias textTask: _addTaskField.text
 
 
@@ -33,6 +34,10 @@ Item {
             anchors.verticalCenter: parent.top
             anchors.verticalCenterOffset: parent.height/2
             anchors.horizontalCenterOffset: -parent.width/20
+
+            onClicked: {
+                delTask()
+            }
         }
 
         TextField {
