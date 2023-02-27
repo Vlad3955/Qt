@@ -57,6 +57,7 @@ Item {
             anchors.bottomMargin: 2
             anchors.topMargin: parent.height/5
             anchors.bottom: parent.bottom
+
             background: Rectangle{
 
                 border.color: "white"

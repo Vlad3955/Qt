@@ -2,8 +2,10 @@ import QtQuick 2.15
 
 Item {
     id: tiRoot
-    implicitWidth: 100
-    implicitHeight: 80
+    implicitWidth: 150
+    implicitHeight: 30
+    property int count
+    property alias textInfo: _tiText.text
 
     Rectangle {
         radius: 10
