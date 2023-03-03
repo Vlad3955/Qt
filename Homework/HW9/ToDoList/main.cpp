@@ -2,6 +2,8 @@
 #include <QQmlApplicationEngine>
 #include "taskmodel.h"
 
+//#include <QApplication>
+
 
 int main(int argc, char *argv[])
 {
@@ -9,6 +11,8 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
     QGuiApplication app(argc, argv);
+    //QApplication app(argc, argv);
+
 
     qmlRegisterType<TaskModel>("TaskModel", 1,0, "TaskModel");
 

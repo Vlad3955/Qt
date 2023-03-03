@@ -58,6 +58,12 @@ Item {
             anchors.topMargin: parent.height/5
             anchors.bottom: parent.bottom
 
+//            RegularExpressionValidator {
+//                regularExpression: /[0-9]+/
+//            }
+
+
+
             background: Rectangle{
 
                 border.color: "white"
