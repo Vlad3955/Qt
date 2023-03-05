@@ -85,6 +85,10 @@ void TaskModel::printTable()
 
 void TaskModel::setTaskCount(int c)
 {
+    if(c > 1)
+    {
+        c = 1;
+    }
     m_tasksCount += c;
     emit tasksCountChanged(m_tasksCount);
 }

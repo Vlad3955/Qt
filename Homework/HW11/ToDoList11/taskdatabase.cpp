@@ -16,6 +16,7 @@ TaskDataBase::TaskDataBase(QWidget *parent) :
 //    }
 }
 
+
 bool TaskDataBase::createConnection()
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
