@@ -8,6 +8,8 @@ TaskDataBase::TaskDataBase(QWidget *parent) :
         return;
     }
 
+
+
 //    if (!createTable())
 //    {
 //        return;
@@ -17,7 +19,7 @@ TaskDataBase::TaskDataBase(QWidget *parent) :
 bool TaskDataBase::createConnection()
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("D:/GB/CPP/Qt/Homework/HW9/build-ToDoList-Desktop_Qt_6_4_1_MSVC2019_64bit-Debug/todolist.db");
+    db.setDatabaseName("todolist.db");
     if (!db.open())
     {
         qDebug() << "Cannot open database";
@@ -29,18 +31,11 @@ bool TaskDataBase::createConnection()
 bool TaskDataBase::createTable()
 {
     QSqlQuery query;
-//    QString s = "CREATE TABLE todolist ("
-//                "number INTEGER PRIMARY KEY NOT NULL,";
-//                "task VARCHAR(255) );";
-//    if (!query.exec(s))
-//    {
-//        qDebug() << "Unable to create a table!";
-//        return false;
-//    }
-
-
-    if (!query.exec("create table todolist(id int(11),"
-                    "task varchar(255))"))
+    QString s = "CREATE TABLE todolist ( "
+                "number INTEGER PRIMARY KEY NOT NULL, "
+                "task VARCHAR(255) "
+                ");";
+    if (!query.exec(s))
     {
         qDebug() << "Unable to create a table!";
         return false;
@@ -48,22 +43,14 @@ bool TaskDataBase::createTable()
     return true;
 }
 
-bool TaskDataBase::insertRecord(QString rec)
+bool TaskDataBase::insertRecord(QString task)
 {
     QSqlQuery query;
-//    QString s = "insert into todolist (rec) "
-//                "VALUES('%1');";
-//    QString s = "insert into todolist values(1, rec);";
-//    QString q = s.arg(rec);
-//    if (!query.exec(q))
-//    {
-//        qDebug() << "Unable to make insert operation!";
-//        return false;
-//    }
-//    return true;
+    QString s = "INSERT INTO todolist (task) "
+                "VALUES('%1');";
+    QString q = s.arg(task);
 
-
-    if (!query.exec("insert into todolist values(1, 'hi');"))
+    if (!query.exec(q))
     {
         qDebug() << "Unable to make insert operation!";
         return false;
@@ -84,4 +71,26 @@ void TaskDataBase::printTable()
         qDebug() << query.value(r.indexOf("number")).toInt() << "\t" <<
                     query.value(r.indexOf("task")).toString();
     }
+    view = new QTableView(this);
+    setCentralWidget(view);
+    model = new QSqlQueryModel(this);
+    model->setQuery("SELECT * FROM todolist;");
+    view->setModel(model);
+    this->show();
+
+}
+
+int TaskDataBase::recordCount()
+{
+    QSqlQuery query;
+    if (!query.exec("SELECT * FROM todolist;"))
+    {
+        qDebug() << "Unable to count table!";
+    }
+    m_recordCount = 0;
+    while (query.next())
+    {
+        ++m_recordCount;
+    }
+    return m_recordCount;
 }

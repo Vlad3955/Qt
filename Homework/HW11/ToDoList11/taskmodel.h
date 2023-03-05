@@ -5,7 +5,10 @@
 #include <QStringList>
 #include <QFile>
 
-// Variant I write to file
+
+// Variant II write to database from TaskModel
+
+#include "taskdatabase.h"
 
 class TaskModel : public QAbstractListModel
 {
@@ -27,7 +30,8 @@ public:
     virtual Qt::ItemFlags flags(const QModelIndex &index) const;
 
     Q_INVOKABLE void add(QString task);
-    Q_INVOKABLE void removeData(int row);
+    //Q_INVOKABLE void removeData(int row);
+    Q_INVOKABLE void printTable();
     void setTaskCount(int c);
     Q_INVOKABLE int tasksCount();
 
@@ -35,6 +39,7 @@ signals:
     void tasksCountChanged(int c);
 
 private:
+    TaskDataBase *taskDB;
     QStringList m_data;
     int m_tasksCount;
 };

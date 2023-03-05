@@ -18,13 +18,15 @@ public:
 //private:
     bool createConnection();
     bool createTable();
-    bool insertRecord(QString rec = "");
+    bool insertRecord(QString task = "");
     void printTable();
+    int recordCount();
 
     QSqlDatabase db;
 
     QSqlQueryModel *model;
     QTableView *view;
+    int m_recordCount;
 };
 
 #endif // TASKDATABASE_H

@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>AddButton.qml</file>
+        <file>CalendarButton.qml</file>
+        <file>DeleteButton.qml</file>
+        <file>EntryField.qml</file>
+        <file>TaskField.qml</file>
+        <file>TasksInfo.qml</file>
+    </qresource>
+    <qresource prefix="/img">
+        <file>add_plus_white.png</file>
+        <file>add_plus_black.png</file>
+        <file>calendar_white.png</file>
+        <file>calendar_black.png</file>
+        <file>delete_white.png</file>
+        <file>delete_black.png</file>
+    </qresource>
+    <qresource prefix="/doc">
+        <file>taskbase.txt</file>
+    </qresource>
+</RCC>

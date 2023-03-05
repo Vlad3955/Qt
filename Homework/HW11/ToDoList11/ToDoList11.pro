@@ -1,6 +1,7 @@
-QT += quick \
-    widgets
-
+QT += gui \
+    quick \
+    widgets \
+    sql
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -8,6 +9,7 @@ QT += quick \
 
 SOURCES += \
         main.cpp \
+        taskdatabase.cpp \
         taskmodel.cpp
 
 RESOURCES += qml.qrc
@@ -24,4 +26,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    taskdatabase.h \
     taskmodel.h
