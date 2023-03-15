@@ -23,40 +23,21 @@ Window {
             height: parent.height
             spacing: 5
 
+            // You:
             Text {
                 id: _youText
                 text: qsTr("You:")
                 anchors.horizontalCenter: parent.horizontalCenter
             }
 
-            Rectangle {
+            MyTextField {
                 id: _rectYourName
                 width: parent.width - 10
                 anchors.horizontalCenter: parent.horizontalCenter
-                height: 30
-                radius: 5
-                color: "black"
-
-                TextField {
-                    id: _tfYourName
-                    anchors.fill: parent
-
-
-                    background: Rectangle {
-                        border.width: 2
-                        border.color: grey
-                        radius: 3
-                    }
-
-//                    Rectangle {
-//                        anchors.fill: parent
-//                        border.width: 2
-//                        border.color: grey
-//                        radius: 5
-//                    }
-                }
             }
 
+
+            // Gender and age:
             Text {
                 id: _gendAgeText
                 text: qsTr("Gender and age:")
@@ -64,12 +45,77 @@ Window {
             }
 
             Rectangle {
-                id: _rectGendName
+                id: _rectGendAge
                 width: parent.width - 10
                 anchors.horizontalCenter: parent.horizontalCenter
                 height: 30
-                radius: 5
-                color: "black"
+                border.width: 2
+                radius: 3
+
+//                RadioButton {
+//                    id: _rbMale
+//                    checked: true
+//                    anchors.left: parent.left
+//                    anchors.verticalCenter: parent.verticalCenter
+//                    anchors.leftMargin: 4
+//                    text: qsTr("Male")
+//                }
+
+//                RadioButton {
+//                    id: _rbFemale
+//                    checked: false
+//                    anchors.left: _rbMale.right
+//                    anchors.verticalCenter: parent.verticalCenter
+//                    anchors.leftMargin: 4
+//                    text: qsTr("Female")
+//                }
+
+                ComboBox {
+                    id: cbGender
+                    model: ["Male", "Female"]
+                    anchors.left: parent.left
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.leftMargin: 4
+
+                    background: Rectangle {
+                        anchors.fill: parent
+                        //color: "black"
+                        anchors.margins: 2
+                        anchors.rightMargin: 10
+                        radius: 3
+                        border.width: 2
+                        border.color: "black"
+                    }
+                }
+
+                Text {
+                    id: _tAge
+                    text: qsTr("Age:")
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.right: _mtfAge.left
+                    anchors.rightMargin: 3
+                }
+
+                MyTextField {
+                    id: _mtfAge
+                    width: 40
+                    height: 22
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.right: parent.right
+                    anchors.margins: 5
+                }
+            }
+
+            Text {
+                id: _cityText
+                text: qsTr("City:")
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            MyTextField {
+                id: _mtfCity
+                width: parent.width - 10
+                anchors.horizontalCenter: parent.horizontalCenter
             }
         }
 
@@ -79,10 +125,7 @@ Window {
             height: parent.height
             anchors.left: _column1.right
 
-            Rectangle {
-                anchors.fill: parent
-                color: "Black"
-            }
+
         }
 
     }
