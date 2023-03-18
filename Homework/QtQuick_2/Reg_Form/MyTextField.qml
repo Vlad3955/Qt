@@ -6,16 +6,22 @@ Item {
     implicitWidth: 100
     implicitHeight: 30
     property alias borderColor: _rectBackground.border.color
+    property alias placeholdText: _tfMyTextField.placeholderText
+    property alias backGroundColor: _rectBackground.color
+    property alias fontColor: _tfMyTextField.color
+    property alias mtfText: _tfMyTextField.text
 
     Rectangle {
         id: _rectMyTextField
         anchors.fill: parent
+        radius: 3
 
         TextField {
             id: _tfMyTextField
             anchors.fill: parent
-            anchors.leftMargin: 2
+            //anchors.leftMargin: 2
             verticalAlignment: Qt.AlignCenter
+            placeholderText: qsTr("some text")
 
             background: Rectangle {
                 id: _rectBackground
