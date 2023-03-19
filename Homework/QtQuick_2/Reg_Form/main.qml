@@ -211,25 +211,19 @@ Window {
                 height: 30
                 border.width: 2
                 radius: 3
-                property string educ
+                property string educ: "text"
 
-                CheckBox {
+
+                RadioButton {
                     id: _chbEducU
                     checked: true
                     anchors.left: parent.left
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.leftMargin: 4
                     text: qsTr("University")
-                    function educ() {
-                        if (checked)
-                        {
-                            educ = "University"
-                        }
-                    }
-
                 }
 
-                CheckBox {
+                RadioButton {
                     id: _chbEducC
                     checked: false
                     anchors.left: _chbEducU.right
@@ -238,7 +232,7 @@ Window {
                     text: qsTr("College")
                 }
 
-                CheckBox {
+                RadioButton {
                     id: _chbEducHS
                     checked: false
                     anchors.left: _chbEducC.right
@@ -247,7 +241,7 @@ Window {
                     text: qsTr("High school")
                 }
 
-                CheckBox {
+                RadioButton {
                     id: _chbEducO
                     checked: false
                     anchors.left: _chbEducHS.right
@@ -255,6 +249,8 @@ Window {
                     anchors.leftMargin: 10
                     text: qsTr("Other")
                 }
+
+
 
             }
 
@@ -280,7 +276,7 @@ Window {
             }
 
             TextArea {
-                id: taInfo
+                id: _taInfo
                 width: parent.width - 12
                 height: 150
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -406,7 +402,7 @@ Window {
                         from: 18
                         to: 100
                         first.value: 25
-                        second.value: 75
+                        second.value: 50
                         anchors.right: parent.right
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: 15
@@ -522,6 +518,8 @@ Window {
                     id: _mtfTheirCity
                     width: parent.width - 11
                     anchors.horizontalCenter: parent.horizontalCenter
+                    backGroundColor: "black"
+                    fontColor:  "white"
                     borderColor: "gray"
                     placeholdText: "Enter city"
                 }
@@ -540,6 +538,7 @@ Window {
                     width: parent.width - 12
                     anchors.horizontalCenter: parent.horizontalCenter
                     height: 30
+                    color: "black"
                     border.color: "gray"
                     border.width: 2
                     radius: 3
@@ -551,6 +550,12 @@ Window {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.leftMargin: 4
                         text: qsTr("University")
+
+                        contentItem: Text {
+                            text: _chbTheirEducU.text
+                            color: "white"
+                            leftPadding: _chbTheirEducU.indicator.width + 4
+                        }
                     }
 
                     CheckBox {
@@ -560,6 +565,12 @@ Window {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.leftMargin: 10
                         text: qsTr("College")
+
+                        contentItem: Text {
+                            text: _chbTheirEducC.text
+                            color: "white"
+                            leftPadding: _chbTheirEducC.indicator.width + 4
+                        }
                     }
 
                     CheckBox {
@@ -569,6 +580,12 @@ Window {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.leftMargin: 10
                         text: qsTr("High school")
+
+                        contentItem: Text {
+                            text: _chbTheirEducHS.text
+                            color: "white"
+                            leftPadding: _chbTheirEducHS.indicator.width + 4
+                        }
                     }
 
                     CheckBox {
@@ -578,6 +595,12 @@ Window {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.leftMargin: 10
                         text: qsTr("Other")
+
+                        contentItem: Text {
+                            text: _chbTheirEducO.text
+                            color: "white"
+                            leftPadding: _chbTheirEducO.indicator.width + 4
+                        }
                     }
 
                 }
@@ -593,6 +616,8 @@ Window {
                     id: _mtfTheirEducOther
                     width: parent.width - 11
                     anchors.horizontalCenter: parent.horizontalCenter
+                    backGroundColor: "black"
+                    fontColor:  "white"
                     borderColor: "gray"
                     placeholdText: "Enter her/his education information"
                 }
@@ -624,7 +649,7 @@ Window {
 
                         onExited: {
                             _rectButton.color = "black"
-                            _rectButton.border.color = "white"
+                            _rectButton.border.color = "gray"
                         }
 
                         onClicked: {
@@ -633,7 +658,64 @@ Window {
                             console.log("Gender:", control.currentText)
                             console.log("Age:", _mtfAge.mtfText)
                             console.log("City:", _mtfCity.mtfText)
-                            console.log("Education:", _rectEduc.educ)
+                            function education() {
+                                if (_chbEducU.checked)
+                                {
+                                    console.log("Education:", _chbEducU.text)
+                                }
+                                if (_chbEducC.checked)
+                                {
+                                    console.log("Education:", _chbEducC.text)
+                                }
+                                if (_chbEducHS.checked)
+                                {
+                                    console.log("Education:", _chbEducHS.text)
+                                }
+                                if (_chbEducO.checked)
+                                {
+                                    console.log("Education:", _mtfEducOther.mtfText)
+                                }
+                            }
+                            education()
+                            console.log("Information about you:", _taInfo.text)
+                            console.log("")
+
+
+                            console.log("        He/She:       ")
+                            function gender() {
+                                if (_switchMale.checked)
+                                {
+                                    console.log("Gender:", _switchMale.text)
+                                }
+                                if (_switchFemale.checked)
+                                {
+                                    console.log("Gender:", _switchFemale.text)
+                                }
+                            }
+                            gender()
+                            console.log("Age, from:", _mtfTheirAgeFrom.mtfText, " to:", _mtfTheirAgeTo.mtfText)
+                            console.log("City:", _mtfTheirCity.mtfText)
+                            function theirEducation() {
+                                if (_chbTheirEducU.checked)
+                                {
+                                    console.log("Education:", _chbTheirEducU.text)
+                                }
+                                if (_chbTheirEducC.checked)
+                                {
+                                    console.log("Education:", _chbTheirEducC.text)
+                                }
+                                if (_chbTheirEducHS.checked)
+                                {
+                                    console.log("Education:", _chbTheirEducHS.text)
+                                }
+                                if (_chbTheirEducO.checked)
+                                {
+                                    console.log("Education:", _mtfTheirEducOther.mtfText)
+                                }
+                            }
+                            theirEducation()
+
+
                         }
                     }
 
@@ -643,12 +725,10 @@ Window {
                         implicitHeight: 40
                         color: "black"
                         opacity: enabled ? 1 : 0.3
-                        border.color: _regButton.down ? "black" : "white"
+                        border.color: _regButton.down ? "black" : "gray"
                         border.width: 2
                         radius: 2
                     }
-
-
                 }
             }
         }
