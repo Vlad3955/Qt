@@ -521,6 +521,7 @@ Window {
                     backGroundColor: "black"
                     fontColor:  "white"
                     borderColor: "gray"
+                    placeholdTextColor: "gray"
                     placeholdText: "Enter city"
                 }
 
@@ -619,6 +620,7 @@ Window {
                     backGroundColor: "black"
                     fontColor:  "white"
                     borderColor: "gray"
+                    placeholdTextColor: "gray"
                     placeholdText: "Enter her/his education information"
                 }
 

@@ -7,6 +7,7 @@ Item {
     implicitHeight: 30
     property alias borderColor: _rectBackground.border.color
     property alias placeholdText: _tfMyTextField.placeholderText
+    property alias placeholdTextColor: _tfMyTextField.placeholderTextColor
     property alias backGroundColor: _rectBackground.color
     property alias fontColor: _tfMyTextField.color
     property alias mtfText: _tfMyTextField.text
