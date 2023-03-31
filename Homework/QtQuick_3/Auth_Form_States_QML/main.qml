@@ -522,6 +522,10 @@ Window {
 
     Rectangle {
         id: secondaryFrame
+        anchors.centerIn: parent
+        radius: 5
+        width: 300
+        height: 250
         property string textColor: "#535353"
         state: "Registration"
 
@@ -532,9 +536,15 @@ Window {
 
             Rectangle {
                 id: rectLoginTextField
+                width: 200
+                height: 40
+                anchors.horizontalCenter: parent.horizontalCenter
 
                 TextField {
                     id: loginTextField
+                    anchors.fill: parent
+                    verticalAlignment: Qt.AlignCenter
+                    color: secondaryFrame.textColor
                     Keys.onEnterPressed: checkCredentials()
                     Keys.onReturnPressed: checkCredentials()
                 }
@@ -542,9 +552,15 @@ Window {
 
             Rectangle{
                 id: rectPasswordTextField
+                width: 200
+                height: 40
+                anchors.horizontalCenter: parent.horizontalCenter
 
                 TextField {
                     id: passwordTextField
+                    anchors.fill: parent
+                    verticalAlignment: Qt.AlignCenter
+                    color: secondaryFrame.textColor
                     Keys.onEnterPressed: checkCredentials()
                     Keys.onReturnPressed: checkCredentials()
                 }
@@ -553,19 +569,29 @@ Window {
 
             Button {
                 id: submitButton
-
+                width: 200
+                height: 40
+                anchors.horizontalCenter: parent.horizontalCenter
                 background: Rectangle {
                     color: parent.down ? "#bbbbbb" :
                     (parent.hovered ? "#d6d6d6" : "#f6f6f6")
                 }
+                onClicked: checkCredentials()
             }
 
             Button {
                 id: logoutButton
-                onClicked: checkCredentials()
+                width: 200
+                height: 40
+                text: qsTr("Выход")
+                anchors.horizontalCenter: parent.horizontalCenter
                 background: Rectangle {
                     color: parent.down ? "#bbbbbb" :
                     (parent.hovered ? "#d6d6d6" : "#f6f6f6")
+                }
+                onClicked: {
+                    secondaryFrame.state = "Registration"
+                    loginTextField.text = ""
                 }
             }
         }
@@ -575,25 +601,11 @@ Window {
                 name: "Search"
                 PropertyChanges {
                     target: secondaryFrame
-                    color: "black"
-                    anchors.centerIn: parent // Размещение компонента внутри родительского
-                    radius: 5                // Закругление углов с выбранным радиусом
-                    width: 300
-                    height: 250
+                    color: "black" 
                 }
-//                PropertyChanges {
-//                    target: rectLoginTextField
-//                    visible: false
-//                }
-//                PropertyChanges {
-//                    target: loginTextField
-//                    visible: false
-//                }
                 PropertyChanges {
-                    target: rectPasswordTextField
-                    width: 200
-                    height: 40
-                    anchors.horizontalCenter: parent.horizontalCenter
+                    target: rectLoginTextField
+                    visible: false
                 }
                 PropertyChanges {
                     target: passwordTextField
@@ -602,70 +614,46 @@ Window {
                 }
                 PropertyChanges {
                     target: submitButton
-                    width: 200
-                    height: 40
                     text: qsTr("Поехали")
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: checkCredentials()
                 }
                 PropertyChanges {
                     target: logoutButton
-                    width: 200
-                    height: 40
-                    text: qsTr("Выход")
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: {
-                        secondaryFrame.state = "Registration"
-                    }
+                    visible: true
                 }
             },
             State {
                 name: "Registration"
                 PropertyChanges {
                     target: secondaryFrame
-                    radius: 5                // Закругление углов с выбранным радиусом
-                    width: 300
-                    height: 250
                     color: "white"
-                    anchors.centerIn: parent // Размещение компонент а внутри родительского
                 }
                 PropertyChanges {
                     target: rectLoginTextField
-                    width: 200
-                    height: 40
-                    anchors.horizontalCenter: parent.horizontalCenter
+                    visible: true
                 }
                 PropertyChanges {
                     target: loginTextField
-                    anchors.fill: parent
-                    verticalAlignment: Qt.AlignCenter
                     placeholderText: qsTr("Логин")
-                    color: secondaryFrame.textColor
                 }
                 PropertyChanges {
                     target: rectPasswordTextField
-                    width: 200
-                    height: 40
-                    anchors.horizontalCenter: parent.horizontalCenter
                 }
                 PropertyChanges {
                     target: passwordTextField
-                    anchors.fill: parent
                     echoMode: TextInput.Password
-                    verticalAlignment: Qt.AlignCenter
                     placeholderText: qsTr("Пароль")
-                    color: secondaryFrame.textColor
                 }
                 PropertyChanges {
                     target: submitButton
-                    width: 200
-                    height: 40
                     text: qsTr("Вход")
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: checkCredentials()
+                }
+                PropertyChanges {
+                    target: logoutButton
+                    visible: false
                 }
             }
         ]
+
 
         transitions: [
             Transition {
@@ -673,20 +661,14 @@ Window {
                 to: "*"
                 SequentialAnimation{
                     PropertyAnimation {
-                        targets: [rectLoginTextField, loginTextField, rectPasswordTextField, passwordTextField, submitButton]
+//                        targets: [rectPasswordTextField, passwordTextField, submitButton, logoutButton,
+//                            secondaryFrame, secondaryFrame.width, secondaryFrame.height, secondaryFrame.color,
+//                            secondaryFrame.radius, rectLoginTextField, loginTextField]
+                        targets: [secondaryFrame]
                         property: "opacity"
                         from: 1
                         to: 0
-                        duration: 600
-                    }
-                }
-                SequentialAnimation{
-                    PropertyAnimation {
-                        targets: [secondaryFrame]
-                        property: "opacity, radius, height, weight, color"
-                        from: 1
-                        to: 0
-                        duration: 2000
+                        duration: 5000
                     }
                 }
             },
@@ -695,28 +677,31 @@ Window {
                 to: "Search"
                 SequentialAnimation{
                     PropertyAnimation {
-                        targets: [rectPasswordTextField, passwordTextField, submitButton, logoutButton]
+//                        targets: [rectPasswordTextField, passwordTextField, submitButton, logoutButton,
+//                                 secondaryFrame, secondaryFrame.width, secondaryFrame.height, secondaryFrame.color,
+//                                 secondaryFrame.radius]
+                        targets: [secondaryFrame]
                         property: "opacity"
                         from: 0
                         to: 1
-                        duration: 2000
+                        duration: 1500
                     }
                 }
+            },
+            Transition {
+                from: "Search"
+                to: "*"
                 SequentialAnimation{
                     PropertyAnimation {
-                        targets: [secondaryFrame, secondaryFrame.width, secondaryFrame.height, secondaryFrame.color, secondaryFrame.radius]
+//                        targets: [rectPasswordTextField, passwordTextField, submitButton, logoutButton,
+//                            secondaryFrame, secondaryFrame.width, secondaryFrame.height, secondaryFrame.color,
+//                            secondaryFrame.radius]
+                        targets: [secondaryFrame]
                         property: "opacity"
-                        from: 0
-                        to: 1
-                        duration: 2500
+                        from: 1
+                        to: 0
+                        duration: 1000
                     }
-//                    PropertyAnimation {
-//                        targets: [secondaryFrame.height]
-//                        property: "opacity"//"opacity, radius, height, weight, color"
-//                        from: 0
-//                        to: 1
-//                        duration: 2500
-//                    }
                 }
             },
             Transition {
@@ -724,11 +709,11 @@ Window {
                 to: "Registration"
                 SequentialAnimation{
                     PropertyAnimation {
-                        targets: [rectLoginTextField, loginTextField, rectPasswordTextField, passwordTextField, submitButton]
+                        targets: [secondaryFrame, rectLoginTextField, loginTextField, rectPasswordTextField, passwordTextField, submitButton]
                         property: "opacity"
                         from: 0
                         to: 1
-                        duration: 600
+                        duration: 1500
                     }
                 }
             }
