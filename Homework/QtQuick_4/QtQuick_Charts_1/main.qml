@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtCharts 2.15
 import QtQml 2.13
+import by.me.ChartsData
 
 
 Window {
@@ -10,6 +11,9 @@ Window {
     visible: true
     title: qsTr("Hello World")
 
+    ChartsData {
+        id: chartsData
+    }
 
 //    Item {
 //        anchors.fill: parent
@@ -53,9 +57,24 @@ Window {
             anchors.fill: parent
             antialiasing: true
 
+            ValuesAxis {
+                id: _axisX
+                min: -3
+                max: 9
+            }
+
+            ValuesAxis {
+                id: _axisY
+                min: -3
+                max: 9
+            }
+
             LineSeries {
                 id: _lineSeries
                 name: "LineSeries"
+                axisX: _axisX
+                axisY: _axisY
+
 //                XYPoint { x: 0; y: 0 }
 //                XYPoint { x: 1.1; y: 2.1 }
 //                XYPoint { x: 1.9; y: 3.3 }
@@ -69,9 +88,10 @@ Window {
         }
 
         Component.onCompleted: {
-            for (var i = 0; i < 7; ++i)
+            for (var i = 0; i < chartsData.getPointX().length; ++i)
             {
-                _lineSeries.append(i, i * i)
+
+                _lineSeries.append(chartsData.getPointX()[i], chartsData.getPointY()[i])
 
 
             }
