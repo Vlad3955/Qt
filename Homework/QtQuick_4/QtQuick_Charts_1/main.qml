@@ -49,6 +49,81 @@ Window {
         }
 
 
+// VARIANT I
+//======================================================
+
+//        ColumnLayout {
+//            id: _colLay
+//            anchors.right: parent.right
+//            anchors.rightMargin: 20
+
+//            RadioButton {
+//                id: _SIN
+//                checked: true
+//                text: qsTr("y = sin(x)")
+//                onClicked:
+//                {
+//                    _lineSeries.clear()
+//                    chartsData.setPointXY(ChartsData.SINUSOID)
+//                    for (var i = 0; i < chartsData.x.length; ++i)
+//                    {
+//                        _lineSeries.append(chartsData.x[i], chartsData.y[i])
+//                    }
+//                }
+
+//            }
+//            RadioButton {
+//                text: qsTr("y = x")
+//                onClicked:
+//                {
+//                    _lineSeries.clear()
+//                    chartsData.setPointXY(ChartsData.STRAIGHT)
+//                    for (var i = 0; i < chartsData.x.length; ++i)
+//                    {
+//                        _lineSeries.append(chartsData.x[i], chartsData.y[i])
+//                    }
+//                }
+//            }
+//            RadioButton {
+//                text: qsTr("y = |x - 2.5|")
+//                onClicked:
+//                {
+//                    _lineSeries.clear()
+//                    chartsData.setPointXY(ChartsData.ABSX)
+//                    for (var i = 0; i < chartsData.x.length; ++i)
+//                    {
+//                        _lineSeries.append(chartsData.x[i], chartsData.y[i])
+//                    }
+//                }
+//            }
+//            RadioButton {
+//                text: qsTr("y = x^2")
+//                onClicked:
+//                {
+//                    _lineSeries.clear()
+//                    chartsData.setPointXY(ChartsData.PARABOLA)
+//                    for (var i = 0; i < chartsData.x.length; ++i)
+//                    {
+//                        _lineSeries.append(chartsData.x[i], chartsData.y[i])
+//                    }
+//                }
+//            }
+//            RadioButton {
+//                text: qsTr("y = log2(x)")
+//                onClicked:
+//                {
+//                    _lineSeries.clear()
+//                    chartsData.setPointXY(ChartsData.LOGFUNC)
+//                    for (var i = 0; i < chartsData.x.length; ++i)
+//                    {
+//                        _lineSeries.append(chartsData.x[i], chartsData.y[i])
+//                    }
+//                }
+//            }
+//        }
+
+// VARIANT II
+//======================================================
 
         ColumnLayout {
             id: _colLay
@@ -61,8 +136,8 @@ Window {
                 text: qsTr("y = sin(x)")
                 onClicked:
                 {
-                    chartsData.setPointXY(chartsData.SINUSOID)
-
+                    _lineSeries.clear()
+                    chartsData.ck = ChartsData.SINUSOID
                     for (var i = 0; i < chartsData.x.length; ++i)
                     {
                         _lineSeries.append(chartsData.x[i], chartsData.y[i])
@@ -71,10 +146,12 @@ Window {
 
             }
             RadioButton {
+                id: _STHT
                 text: qsTr("y = x")
                 onClicked:
                 {
-                    chartsData.setPointXY(chartsData.STRAIGHT)
+                    _lineSeries.clear()
+                    chartsData.ck = ChartsData.STRAIGHT
                     for (var i = 0; i < chartsData.x.length; ++i)
                     {
                         _lineSeries.append(chartsData.x[i], chartsData.y[i])
@@ -82,10 +159,12 @@ Window {
                 }
             }
             RadioButton {
+                id: _ABSX
                 text: qsTr("y = |x - 2.5|")
                 onClicked:
                 {
-                    chartsData.setPointXY(chartsData.ABSX)
+                    _lineSeries.clear()
+                    chartsData.ck = ChartsData.ABSX
                     for (var i = 0; i < chartsData.x.length; ++i)
                     {
                         _lineSeries.append(chartsData.x[i], chartsData.y[i])
@@ -93,10 +172,12 @@ Window {
                 }
             }
             RadioButton {
+                id: _PARAB
                 text: qsTr("y = x^2")
                 onClicked:
                 {
-                    chartsData.setPointXY(chartsData.PARABOLA)
+                    _lineSeries.clear()
+                    chartsData.ck = ChartsData.PARABOLA
                     for (var i = 0; i < chartsData.x.length; ++i)
                     {
                         _lineSeries.append(chartsData.x[i], chartsData.y[i])
@@ -104,10 +185,12 @@ Window {
                 }
             }
             RadioButton {
+                id: _LOG
                 text: qsTr("y = log2(x)")
                 onClicked:
                 {
-                    chartsData.setPointXY(chartsData.LOGFUNC)
+                    _lineSeries.clear()
+                    chartsData.ck = ChartsData.LOGFUNC
                     for (var i = 0; i < chartsData.x.length; ++i)
                     {
                         _lineSeries.append(chartsData.x[i], chartsData.y[i])
@@ -119,18 +202,20 @@ Window {
 
 
         Component.onCompleted: {
-//            for (var i = 0; i < chartsData.getPointX().length; ++i)
-//            {
-//                _lineSeries.append(chartsData.getPointX()[i], chartsData.getPointY()[i])
-//            }
-            //chartsData.setPointXY(chartsData.SINUSOID)
-//            for (var i = 0; i < chartsData.x.length; ++i)
-//            {
-//                _lineSeries.append(chartsData.x[i], chartsData.y[i])
-//            }
-
+            chartsData.ck = ChartsData.SINUSOID
+            for (var i = 0; i < chartsData.x.length; ++i)
+            {
+                _lineSeries.append(chartsData.x[i], chartsData.y[i])
+            }
         }
     }
+
+
+
+
+//============================================================================
+//============================================================================
+
 
 
 //    Item {
