@@ -2,7 +2,10 @@ import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtCharts 2.15
 import QtQml 2.13
+import QtQuick.Layouts 1.15
+import QtQuick.Controls 2.15
 import by.me.ChartsData
+
 
 
 Window {
@@ -13,7 +16,122 @@ Window {
 
     ChartsData {
         id: chartsData
+
+        }
+
+    Item {
+        anchors.fill: parent
+
+        ChartView {
+            id: _line
+            title: "Line"
+            anchors.fill: parent
+            antialiasing: true
+
+            ValuesAxis {
+                id: _axisX
+                min: -3
+                max: 9
+            }
+
+            ValuesAxis {
+                id: _axisY
+                min: -3
+                max: 9
+            }
+
+            LineSeries {
+                id: _lineSeries
+                name: "LineSeries"
+                axisX: _axisX
+                axisY: _axisY
+            }
+        }
+
+
+
+        ColumnLayout {
+            id: _colLay
+            anchors.right: parent.right
+            anchors.rightMargin: 20
+
+            RadioButton {
+                id: _SIN
+                checked: true
+                text: qsTr("y = sin(x)")
+                onClicked:
+                {
+                    chartsData.setPointXY(chartsData.SINUSOID)
+
+                    for (var i = 0; i < chartsData.x.length; ++i)
+                    {
+                        _lineSeries.append(chartsData.x[i], chartsData.y[i])
+                    }
+                }
+
+            }
+            RadioButton {
+                text: qsTr("y = x")
+                onClicked:
+                {
+                    chartsData.setPointXY(chartsData.STRAIGHT)
+                    for (var i = 0; i < chartsData.x.length; ++i)
+                    {
+                        _lineSeries.append(chartsData.x[i], chartsData.y[i])
+                    }
+                }
+            }
+            RadioButton {
+                text: qsTr("y = |x - 2.5|")
+                onClicked:
+                {
+                    chartsData.setPointXY(chartsData.ABSX)
+                    for (var i = 0; i < chartsData.x.length; ++i)
+                    {
+                        _lineSeries.append(chartsData.x[i], chartsData.y[i])
+                    }
+                }
+            }
+            RadioButton {
+                text: qsTr("y = x^2")
+                onClicked:
+                {
+                    chartsData.setPointXY(chartsData.PARABOLA)
+                    for (var i = 0; i < chartsData.x.length; ++i)
+                    {
+                        _lineSeries.append(chartsData.x[i], chartsData.y[i])
+                    }
+                }
+            }
+            RadioButton {
+                text: qsTr("y = log2(x)")
+                onClicked:
+                {
+                    chartsData.setPointXY(chartsData.LOGFUNC)
+                    for (var i = 0; i < chartsData.x.length; ++i)
+                    {
+                        _lineSeries.append(chartsData.x[i], chartsData.y[i])
+                    }
+                }
+            }
+        }
+
+
+
+        Component.onCompleted: {
+//            for (var i = 0; i < chartsData.getPointX().length; ++i)
+//            {
+//                _lineSeries.append(chartsData.getPointX()[i], chartsData.getPointY()[i])
+//            }
+            //chartsData.setPointXY(chartsData.SINUSOID)
+//            for (var i = 0; i < chartsData.x.length; ++i)
+//            {
+//                _lineSeries.append(chartsData.x[i], chartsData.y[i])
+//            }
+
+        }
     }
+
 
 //    Item {
 //        anchors.fill: parent
@@ -47,57 +165,6 @@ Window {
 //        }
 //    }
 
-
-    Item {
-        anchors.fill: parent
-
-        ChartView {
-            id: _line
-            title: "Line"
-            anchors.fill: parent
-            antialiasing: true
-
-            ValuesAxis {
-                id: _axisX
-                min: -3
-                max: 9
-            }
-
-            ValuesAxis {
-                id: _axisY
-                min: -3
-                max: 9
-            }
-
-            LineSeries {
-                id: _lineSeries
-                name: "LineSeries"
-                axisX: _axisX
-                axisY: _axisY
-
-//                XYPoint { x: 0; y: 0 }
-//                XYPoint { x: 1.1; y: 2.1 }
-//                XYPoint { x: 1.9; y: 3.3 }
-//                XYPoint { x: 2.1; y: 2.1 }
-//                XYPoint { x: 2.9; y: 4.9 }
-//                XYPoint { x: 3.4; y: 3.0 }
-//                XYPoint { x: 4.1; y: 3.3 }
-
-
-            }
-        }
-
-        Component.onCompleted: {
-            for (var i = 0; i < chartsData.getPointX().length; ++i)
-            {
-
-                _lineSeries.append(chartsData.getPointX()[i], chartsData.getPointY()[i])
-
-
-            }
-
-        }
-    }
 
 
 //    Item {
