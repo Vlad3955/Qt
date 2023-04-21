@@ -54,38 +54,26 @@
 class ChartsData : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(ChartKind ck READ getCk WRITE setCk NOTIFY chartKindChanges)
-    Q_PROPERTY(QVector<double> x READ getPointX NOTIFY chartChangedX)
-    Q_PROPERTY(QVector<double> y READ getPointY NOTIFY chartChangedY)
+    Q_PROPERTY(QVector<double> yM READ getPointYM NOTIFY chartChangedYM)
+    Q_PROPERTY(QVector<double> Xi READ getPointX NOTIFY chartChangedX)
+    Q_PROPERTY(QVector<double> Yi READ getPointY NOTIFY chartChangedY)
 public:
     explicit ChartsData(QObject *parent = nullptr);
-    enum ChartKind {
-        SINUSOID,
-        STRAIGHT,
-        ABSX,
-        PARABOLA,
-        LOGFUNC
-    };
-    Q_ENUM(ChartKind)
-
     QVector<double> getPointX();
     QVector<double> getPointY();
-    void setCk(ChartKind _ck);
-    ChartKind getCk();
-    void setPointXY(ChartKind ck);
+    QVector<double> getPointYM();
 
 
 
 signals:
     void chartChangedX(QVector<double> _x);
     void chartChangedY(QVector<double> _y);
-    void chartKindChanges(ChartsData::ChartKind ck);
+    void chartChangedYM(QVector<double> _yM);
 
 private:
-    double xBegin, xEnd, h, X;
+    double a, b, d, d1, d2, da, db;
     int xi, yi, xi2, xiyi;
-    QVector<double> x, y, Xi, Yi;
-    ChartKind ck;
+    QVector<double> Xi, Yi, xM, yM;
 };
 
 #endif // CHARTSDATA_H
